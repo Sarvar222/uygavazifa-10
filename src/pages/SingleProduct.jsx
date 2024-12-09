@@ -9,13 +9,14 @@ function SingleProduct() {
   const { product } = useLoaderData();
   console.log(product);
   return (
-    <div className="card card-side bg-base-100 shadow-xl my-auto">
+    <div className="bg-base-100 shadow-xl text-center">
       <figure>
-        <img src={product.thumbnail} alt="Movie" />
+        <div className="ml-96">
+          <img src={product.thumbnail} alt="Movie" />
+        </div>
       </figure>
-      <div className="card-body">
-        <h2 className="card-title">{product.title}</h2>
-        <h2 className="card-title">Brand name: {product.brand}</h2>
+      <div className="card-body text-center">
+        <h2 className="card-title ml-96">{product.title}</h2>
         <p>Description: {product.description}</p>
         <span className="text-lg font-bold">Price: ${product.price}</span>
         <span className="text-lg font-bold">
