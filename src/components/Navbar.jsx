@@ -65,7 +65,7 @@ function Navbar() {
               >
                 <div className="card-body">
                   <span className="text-lg font-bold">Name</span>
-                  <span className="text-info">Price: $100</span>
+                  <span className="text-info">Price: $999</span>
                   {/* {products.map((prod) => {
                     return (
                       <>
