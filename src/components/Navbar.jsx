@@ -91,7 +91,7 @@ function Navbar() {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="./public/1662645932383.jpg"
+                    src="./public/images.png"
                   />
                 </div>
               </div>
