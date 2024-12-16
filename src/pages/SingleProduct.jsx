@@ -1,33 +1,33 @@
-import { useLoaderData } from "react-router";
+import { useLoaderData } from "react-router-dom";
 import { axiosInstance } from "../utils/axiosInstance";
+
 export const loader = async ({ params }) => {
-  const req = await axiosInstance.get("/products/" + params.id);
+  const req = await axiosInstance.get(`/products/` + params.id);
   const product = req.data;
   return { product };
 };
+
 function SingleProduct() {
   const { product } = useLoaderData();
-  console.log(product);
   return (
-    <div className="bg-base-100 shadow-xl text-center">
-      <figure>
-        <div className="ml-96">
-          <img src={product.thumbnail} alt="Movie" />
-        </div>
-      </figure>
-      <div className="card-body text-center">
-        <h2 className="card-title ml-96">{product.title}</h2>
-        <p>Description: {product.description}</p>
-        <span className="text-lg font-bold">Price: ${product.price}</span>
-        <span className="text-lg font-bold">
-          Discount: {product.discountPercentage}%
-        </span>
-        <span className="text-lg font-bold">Rating: {product.rating}</span>
-        <div className="card-actions justify-end">
-          <button className="btn btn-primary">Buy Now</button>
-        </div>
+    <div className="rounded-lg p-5 font-mono">
+      <img
+        src={product.thumbnail}
+        alt=""
+        width={300}
+        height={300}
+        className="ml-96"
+      />
+
+      <div className="flex flex-col items-center  gap-5">
+        <h2 className="text-2xl text-center">{product.title}</h2>
+        <p className="text-lg text-center">{product.description}</p>
+        <span className="text-xl">Brand: {product.brand}</span>
+        <p className="text-xl">Category: {product.category}</p>
+        <p className="text-xl">Price: ${product.price}</p>
       </div>
     </div>
   );
 }
+
 export default SingleProduct;

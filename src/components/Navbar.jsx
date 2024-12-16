@@ -1,21 +1,29 @@
-import { Link } from "react-router";
-import NavbarLinks from "./NavbarLinks.jsx";
+import { Link } from "react-router-dom";
+import NavbarLinks from "./NavbarLinks";
 import { useContext } from "react";
 import { GlobalContext } from "../context/globalContext";
+import { useSignout } from "../hooks/useSignout";
+
 function Navbar() {
-  const { color, selectedProducts } = useContext(GlobalContext);
+  const { userSignout } = useSignout();
+  const { color, selectedProducts, totalAmount, totalPrice } =
+    useContext(GlobalContext);
   return (
     <header className="bg-base-200 mb-5" style={{ backgroundColor: color }}>
-      <div className="align-elements navbar">
+      <div className=" align-elements navbar">
         <div className="navbar-start">
           <Link
             to="/"
-            className="btn btn-primary text-xl font-medium hidden md:flex"
+            className="btn  btn-primary text-xl hidden md:flex"
           >
             SarvarShop
           </Link>
-          <div className="dropdown md:hidden">
-            <div tabIndex={0} role="button" className="btn btn-primary">
+          <div className="dropdown md:hidden ">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-primary text-xl font-medium"
+            >
               SarvarShop
             </div>
             <ul
@@ -26,14 +34,14 @@ function Navbar() {
             </ul>
           </div>
         </div>
-        <div className="navbar-center hidden md:flex">
-          <ul className="menu menu-horizontal">
-            <NavbarLinks />
+        <div className="navbar-center">
+          <ul className="menu menu-horizontal hidden md:flex ">
+            <NavbarLinks />{" "}
           </ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex gap-5">
           <div className="flex items-center">
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end ">
               <div
                 tabIndex={0}
                 role="button"
@@ -55,7 +63,7 @@ function Navbar() {
                     />
                   </svg>
                   <span className="badge badge-sm indicator-item">
-                    {selectedProducts.length}
+                    {totalAmount}
                   </span>
                 </div>
               </div>
@@ -64,20 +72,12 @@ function Navbar() {
                 className="card card-compact dropdown-content bg-base-100 z-[1] mt-3 w-52 shadow"
               >
                 <div className="card-body">
-                  <span className="text-lg font-bold">Name</span>
-                  <span className="text-info">Price: $999</span>
-                  {/* {products.map((prod) => {
-                    return (
-                      <>
-                        <span className="text-lg font-bold">{prod.title}</span>
-                        <span className="text-info">Price: ${prod.price}</span>
-                      </>
-                    );
-                  })} */}
+                  <span className="text-lg font-bold">{totalAmount} Items</span>
+                  <span className="text-info">Subtotal: {totalPrice}</span>
                   <div className="card-actions">
-                    <button className="btn btn-primary btn-block">
-                      View product
-                    </button>
+                    <Link to="/cart" className="btn btn-primary btn-block">
+                      View cart
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -91,7 +91,7 @@ function Navbar() {
                 <div className="w-10 rounded-full">
                   <img
                     alt="Tailwind CSS Navbar component"
-                    src="./public/images.png"
+                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   />
                 </div>
               </div>
@@ -109,7 +109,7 @@ function Navbar() {
                   <a>Settings</a>
                 </li>
                 <li>
-                  <a>Logout</a>
+                  <span onClick={userSignout}>Logout</span>
                 </li>
               </ul>
             </div>
@@ -119,4 +119,5 @@ function Navbar() {
     </header>
   );
 }
+
 export default Navbar;

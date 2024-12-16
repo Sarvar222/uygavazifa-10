@@ -1,23 +1,41 @@
-import { createBrowserRouter, RouterProvider } from "react-router";
+// rrd import
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 // layouts
-import MainLayout from "./layout/MainLayout.jsx";
-//pages
+import MainLayout from "./layouts/MainLayout";
+// pages
 import {
   About,
   Cart,
-  Home,
   Contact,
+  Home,
   Login,
   Register,
   SingleProduct,
 } from "./pages";
+// loader
 import { loader as HomeLoader } from "./pages/Home";
 import { loader as SingleProductLoader } from "./pages/SingleProduct";
+
+// component
+import { ProtectedRoutes } from "./components";
+// global context
+import { useGlobalContext } from "./hooks/useGlobalContext";
+
 function App() {
+  const { user, authReady } = useGlobalContext();
   const routes = createBrowserRouter([
     {
       path: "/",
-      element: <MainLayout />,
+      element: (
+        <ProtectedRoutes user={user}>
+          <MainLayout />
+        </ProtectedRoutes>
+      ),
+
       children: [
         {
           index: true,
@@ -37,21 +55,22 @@ function App() {
           element: <Cart />,
         },
         {
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          path: "/register",
-          element: <Register />,
-        },
-        {
           path: "/singleproduct/:id",
           element: <SingleProduct />,
           loader: SingleProductLoader,
         },
       ],
     },
+    {
+      path: "/login",
+      element: user ? <Navigate to="/" /> : <Login />,
+    },
+    {
+      path: "/register",
+      element: user ? <Navigate to="/" /> : <Register />,
+    },
   ]);
-  return <RouterProvider router={routes} />;
+  return <>{authReady && <RouterProvider router={routes} />}</>;
 }
+
 export default App;

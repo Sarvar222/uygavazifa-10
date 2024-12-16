@@ -14,7 +14,7 @@
   main {
     @apply grow;
   }
-  .align-elements {
-    @apply max-w-6xl mx-auto px-5 w-full;
-  }
+}
+.align-elements {
+  @apply max-w-6xl mx-auto px-5 w-full;
 }

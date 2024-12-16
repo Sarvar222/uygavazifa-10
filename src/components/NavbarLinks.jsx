@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 const links = [
   {
     id: 1,
@@ -8,12 +8,12 @@ const links = [
   {
     id: 2,
     path: "/about",
-    text: "About",
+    text: "About ",
   },
   {
     id: 3,
     path: "/contact",
-    text: "Contact",
+    text: "Contact ",
   },
 ];
 function NavbarLinks() {
